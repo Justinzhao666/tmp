@@ -1,0 +1,18 @@
+session 如何知道 分别谁是谁的session
+    session都有一个session id response的时候会将该id传递给客户端的cookie中，当request的时候会将sessionid再传递给服务器，然后就知道该次访问数据该从那个session中取出了
+    
+    一共四个域对象是哪4个？ session servletContext request
+    
+   一般情况 session返回给浏览器的cookie值 session-id 虽然是给客户端的，但是是处于客户端内存中的，并没有存入磁盘，
+   每个浏览器窗口都有自己的内存区，所以新的会话（新窗口）是没有session-id的cookie值的，所以不能访问别的窗口的session
+   
+   session依赖cookie
+   
+   session如果不设置超时时间默认是30分分钟
+   
+   服务器重启的话，session中的数据会被序列化保存到文件中（持久化），所以存在session中的对象要实现serializable接口
+   
+   验证码存在session中
+   
+   当客户端禁用cookie后，session理应该无法使用了，这样保持状态的数据就会有问题
+   方案：url重写
